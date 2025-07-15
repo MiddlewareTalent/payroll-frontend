@@ -5,7 +5,7 @@ import axios from "axios"
 const EmployerDashboard = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const employerId = "MTL1";
+  const employerId = "EMP12345";
   const [employer, setEmployer] = useState(null);
   
 
@@ -85,6 +85,7 @@ const EmployerDashboard = () => {
     return icons[iconName] || icons.home
   }
 
+
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -102,9 +103,7 @@ const EmployerDashboard = () => {
 //   if (employers.length === 0 || allEmployees.length === 0 || allPayslips.length === 0) {
 //   return <div className="text-center mt-10 text-gray-500">Loading dashboard data...</div>;
 // }
-
-
-  return (
+return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow">
@@ -124,8 +123,6 @@ const EmployerDashboard = () => {
           </div>
         </div>
       </div>
-
-
       {/* Navigation */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -147,8 +144,7 @@ const EmployerDashboard = () => {
           </nav>
         </div>
       </div>
-
-      {/* Dashboard Content */}
+{/* Dashboard Content */}
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -176,7 +172,6 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
@@ -199,8 +194,7 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div>
-
-              <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -222,7 +216,6 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div> 
-
             <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
@@ -245,8 +238,7 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div>
-
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -257,7 +249,7 @@ const EmployerDashboard = () => {
                         strokeWidth={2}
                         d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
                       />
-                    </svg>
+                      </svg>
                   </div>
                   <div className="ml-5 w-0 flex-1">
                     <dl>
@@ -268,8 +260,7 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div>
-
-               <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -291,8 +282,7 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div>
-
-             <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -314,8 +304,7 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div> 
-
-             <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -337,8 +326,7 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div> 
-
-             <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -360,7 +348,6 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div> 
-
             <div className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
                 <div className="flex items-center">
@@ -383,12 +370,10 @@ const EmployerDashboard = () => {
                 </div>
               </div>
             </div> 
-
           </div>
-          </div>
+        </div>
       </div>
     </div>
   )
 }
-
 export default EmployerDashboard
