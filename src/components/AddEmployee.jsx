@@ -258,10 +258,10 @@ const AddEmployee = ({ onAddEmployee }) => {
     if (activeTab === "taxNI") {
       isValid = validateForm() && validateTaxAndLoanDetails();
     } else {
-      isValid = true; 
+      isValid = true;
     }
 
-    if (!isValid) return; 
+    if (!isValid) return;
 
     // Move to next tab
     if (currentIndex < tabs.length - 1) {
@@ -284,7 +284,7 @@ const AddEmployee = ({ onAddEmployee }) => {
   const handleSubmit = async (e) => {
     console.log(formData);
     e.preventDefault();
-    let updatedData = { ...formData};
+    let updatedData = { ...formData };
 
     const isFormValid = validateForm();
     const isTaxValid = validateTaxAndLoanDetails();
@@ -309,7 +309,7 @@ const AddEmployee = ({ onAddEmployee }) => {
 
 
         console.log(fileData.data);
-         updatedData = {
+        updatedData = {
           ...updatedData,
           hasP45DocumentSubmitted: !!fileData.data["P45"],
           hasStarterChecklistDocumentSubmitted: !!fileData.data["checklist"],
@@ -318,7 +318,7 @@ const AddEmployee = ({ onAddEmployee }) => {
         };
       }
 
-         
+
       console.log("form data", formData);
 
       const response = await axios.post(
@@ -341,7 +341,7 @@ const AddEmployee = ({ onAddEmployee }) => {
           onAddEmployee(formData);
         }
 
-        navigate("/employer-dashboard"); 
+        navigate("/employer-dashboard");
       } else {
 
         alert("Failed to add employee. Please try again.");
@@ -853,7 +853,7 @@ const AddEmployee = ({ onAddEmployee }) => {
             styles={{
               menuList: (base) => ({
                 ...base,
-                maxHeight: '120px', // Show around 4 items, then scroll
+                maxHeight: '120px',
               }),
             }}
             placeholder="Select NI Category Letter..."
@@ -875,7 +875,21 @@ const AddEmployee = ({ onAddEmployee }) => {
           </select>
         </div>
 
-        <div className="flex flex-row gap-20">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Tax Year <span className="text-red-600">*</span></label>
+          <select
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2 border"
+            value={formData.taxYear}
+            onChange={(e) => handleInputChange("taxYear", e.target.value)}
+          >
+            <option value="">Select</option>
+            <option value="2025-2026">2025-2026</option>
+            <option value="2024-2025">2024-2025</option>
+            <option value="2023-2024">2023-2024</option>
+          </select>
+        </div>
+
+        <div className="flex flex-row flex-nowrap gap-20">
           <label className="flex items-center mt-6">
             <input
               type="checkbox"
@@ -892,27 +906,11 @@ const AddEmployee = ({ onAddEmployee }) => {
               Emergency Tax Code
             </span>
           </label>
-
-          <label className="flex items-center mt-6">
-            <input
-              type="checkbox"
-              checked={formData.studentLoanDto.hasStudentLoan}
-              onChange={(e) =>
-                setFormData(prev => ({
-                  ...prev,
-                  studentLoanDto: {
-                    ...prev.studentLoanDto,
-                    hasStudentLoan: e.target.checked,
-                  },
-                }))
-              }
-              className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-            />
-            <span className="ml-2 text-sm font-medium text-gray-700">
-              Student Loan
-            </span>
-          </label>
         </div>
+
+
+
+
 {formData.studentLoanDto.hasStudentLoan && (
         <div>
           <label className="block text-sm font-medium text-gray-700">Student Loan Type</label>
@@ -930,40 +928,54 @@ const AddEmployee = ({ onAddEmployee }) => {
 )}
 
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Tax Year <span className="text-red-600">*</span></label>
-          <select
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2 border"
-            value={formData.taxYear}
-            onChange={(e) => handleInputChange("taxYear", e.target.value)}
-          >
-            <option value="">Select</option>
-            <option value="2025-2026">2025-2026</option>
-            <option value="2024-2025">2024-2025</option>
-            <option value="2023-2024">2023-2024</option>
-          </select>
-        </div>
 
-        <label className="flex items-center mt-6">
-          <input
-            type="checkbox"
-            className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-            checked={formData.postGraduateLoanDto.hasPostgraduateLoan}
-            onChange={(e) =>
-              setFormData(prev => ({
-                ...prev,
-                postGraduateLoanDto: {
-                  ...prev.postGraduateLoanDto,
-                  hasPostgraduateLoan: e.target.checked,
-                },
-              }))
-            }
-          />
 
-          <span className="ml-2 text-sm font-medium text-gray-700">
-            Postgraduate Loan
-          </span>
-        </label>
+
+        
+      </div>
+
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex items-start">
+          {/* Student Loan Section */}
+          <div>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={formData.studentLoanDto.hasStudentLoan}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    studentLoanDto: {
+                      ...prev.studentLoanDto,
+                      hasStudentLoan: e.target.checked,
+                    },
+                  }))
+                }
+                className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+              />
+              <span className="ml-2 text-sm font-medium text-gray-700">
+                Student Loan
+              </span>
+            </label>
+
+            {formData.studentLoanDto.hasStudentLoan && (
+              <div>
+               
+                <select
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2 border"
+                  value={formData.studentLoanDto.studentLoanPlanType}
+                  onChange={(e) =>
+                    handleInputChange("studentLoanDto.studentLoanPlanType", e.target.value)
+                  }
+                >
+                  <option value="NONE">None</option>
+                  <option value="STUDENT_LOAN_PLAN_1">Plan 1</option>
+                  <option value="STUDENT_LOAN_PLAN_2">Plan 2</option>
+                  <option value="STUDENT_LOAN_PLAN_3">Plan 4</option>
+                </select>
+              </div>
+            )}
+          </div>
 
 {formData.postGraduateLoanDto.hasPostgraduateLoan && (
         <div>
@@ -979,31 +991,84 @@ const AddEmployee = ({ onAddEmployee }) => {
         </div>
         )}
 
-        <label className="flex items-center">
-          <input
-            type="checkbox"
-            className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            checked={formData.hasPensionEligible}
-            onChange={(e) =>
-              handleInputChange("hasPensionEligible", e.target.checked)
-            }
-          />
-          <span className="ml-2 text-sm text-gray-700 font-medium">
-            Eligible for Auto Enrolment
-          </span>
-        </label>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Upload P45 Document</label>
-          <input type="file" onChange={handleP45Change} className="mt-1 block w-50 bg-blue-100 text-sm border-1 border-blue-500 rounded-lg p-1" />
+          {/* Postgraduate Loan Section */}
+          <div >
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                checked={formData.postGraduateLoanDto.hasPostgraduateLoan}
+                onChange={(e) =>
+                  setFormData(prev => ({
+                    ...prev,
+                    postGraduateLoanDto: {
+                      ...prev.postGraduateLoanDto,
+                      hasPostgraduateLoan: e.target.checked,
+                    },
+                  }))
+                }
+              />
+              <span className="ml-2 text-sm font-medium text-gray-700">
+                Postgraduate Loan
+              </span>
+            </label>
+
+            {formData.postGraduateLoanDto.hasPostgraduateLoan && (
+              <div>
+                
+                <select
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2 border"
+                  value={formData.postGraduateLoanDto.postgraduateLoanPlanType}
+                  onChange={(e) =>
+                    handleInputChange("postGraduateLoanDto.postgraduateLoanPlanType", e.target.value)
+                  }
+                >
+                  <option value="NONE">None</option>
+                  <option value="POSTGRADUATE_LOAN_PLAN_3">Postgraduate Loan Plan 3</option>
+                </select>
+              </div>
+            )}
+
+          </div>
+           <div >
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                checked={formData.hasPensionEligible}
+                onChange={(e) =>
+                  handleInputChange("hasPensionEligible", e.target.checked)
+                }
+              />
+              <span className="ml-2 text-sm text-gray-700 font-medium">
+                Eligible for Auto Enrolment
+              </span>
+            </label>
+           </div>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Upload Starter Checklist</label>
-          <input type="file" onChange={handleStarterChecklistChange} className="mt-1 block w-50 bg-blue-100 text-sm border-1 border-blue-500 rounded-lg p-1" />
-        </div>
-
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* P45 Upload */}
+          <div className="w-full md:w-1/2">
+            <label className="block text-sm font-medium text-gray-700">Upload P45 Document</label>
+            <input
+              type="file"
+              onChange={handleP45Change}
+              className="mt-1 block w-full bg-blue-100 text-sm border border-blue-500 rounded-lg p-1"
+            />
+          </div>
+
+          {/* Starter Checklist Upload */}
+          <div className="w-full md:w-1/2">
+            <label className="block text-sm font-medium text-gray-700">Upload Starter Checklist</label>
+            <input
+              type="file"
+              onChange={handleStarterChecklistChange}
+              className="mt-1 block w-full bg-blue-100 text-sm border border-blue-500 rounded-lg p-1"
+            />
+          </div>
+        </div>
     </div>
   )
 
@@ -1179,7 +1244,7 @@ const AddEmployee = ({ onAddEmployee }) => {
                       {tabs.find((tab) => tab.id === activeTab)?.name}
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">
-                     Fields marked with (*) are mandatory. Please fill them out.
+                      Fields marked with (*) are mandatory. Please fill them out.
                     </p>
                   </div>
 
@@ -1215,7 +1280,7 @@ const AddEmployee = ({ onAddEmployee }) => {
                                 ? validateTaxAndLoanDetails()
                                 : validateCurrentTab(currentTabId);
 
-                            if (!isValid) return; 
+                            if (!isValid) return;
 
 
                             console.log(activeTab)
